@@ -1,0 +1,24 @@
+<ion-content padding>
+    <ion-card-header>
+      <ion-card-title><p class="usertitle">Hello {{userInfo.customer_username}}...</p></ion-card-title>
+      <ion-card-subtitle class="subtitle">How about you choose</ion-card-subtitle>
+      <ion-card-subtitle class="subtitle">Default launch screen you are here for ?</ion-card-subtitle>
+    </ion-card-header>
+    <div class="launchpage">
+      <ul class="buttons-section">
+        <li>
+        <ion-button class="launch_page_buttons" [ngClass]="(step =='wall')?'selected':''" (click)="selectPageType('wall')">I'm here to explore all</ion-button> 
+        </li>
+        <li>
+          <ion-button class="launch_page_buttons" [ngClass]="(step =='shopping')?'selected':''" (click)="selectPageType('shopping')">I'm here for shopping</ion-button> 
+        </li> 
+        <li>
+          <ion-button class="launch_page_buttons" [ngClass]="(step =='service')?'selected':''" (click)="selectPageType('service')">I'm here for services</ion-button> 
+        </li>
+      </ul>
+    </div>
+    <p class="text">You can change this in setting anytime</p>
+    <div>
+      <ion-button class="next_button" (click)="wallPage()">Next</ion-button>
+    </div>
+</ion-content>

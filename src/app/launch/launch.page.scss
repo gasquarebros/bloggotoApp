@@ -1,0 +1,39 @@
+.usertitle{
+    font-size: 12px;
+}
+.subtitle{
+    font-size:10px;
+    font-family :Trebuchet MS;
+    color:chocolate;
+}
+.launchpage {
+    text-align: center;
+}
+.buttons-section {
+    list-style: none;
+    display: inline-block;
+    margin: 0;
+    padding: 0;
+}
+.selected {
+    --background: rgb(93, 82, 248);
+}
+.launch_page_buttons{
+    height:60px;
+    width:200px;
+}
+.launch_page_buttons:hover{
+    --background:rgb(93, 82, 248);
+
+}
+.launch_page_buttons:active{
+    --background:rgb(48, 160, 45);
+}
+.text{
+    font-size:15px;
+    color:rgb(139, 15, 241);
+}
+.next_button{
+    float: right;
+    --background:rgb(48, 160, 45);
+}

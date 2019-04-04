@@ -1,0 +1,43 @@
+// http://ionicframework.com/docs/theming/
+@import '~@ionic/angular/css/core.css';
+@import '~@ionic/angular/css/normalize.css';
+@import '~@ionic/angular/css/structure.css';
+@import '~@ionic/angular/css/typography.css';
+
+@import '~@ionic/angular/css/padding.css';
+@import '~@ionic/angular/css/float-elements.css';
+@import '~@ionic/angular/css/text-alignment.css';
+@import '~@ionic/angular/css/text-transformation.css';
+@import '~@ionic/angular/css/flex-utils.css';
+
+.title-ios {
+    padding: 0px;
+}
+.item-native {
+    padding:0px;
+}
+.profile-top-section {
+    width:100%;
+    float:left;
+    padding: 0 8px;
+    .profile-username {
+        width:100%;
+        float:left;
+        padding:0px;
+        margin:0px;
+    }
+    .profile-action-btn {
+        width:100%;
+        float:left;
+        padding:0px;
+        margin:0px;
+        .edit-profile-btn {
+            float:left;
+            width:auto;
+        }
+        .logout-btn {
+            float:right;
+            width:auto;
+        }
+    }
+}
