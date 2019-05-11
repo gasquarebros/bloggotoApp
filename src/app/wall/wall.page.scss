@@ -2,6 +2,26 @@
     float: right;
     --background:rgb(48, 160, 45);
 }
+.item-inner{
+  --border: 0px;
+  padding-left: 10px;
+  .post-category {
+    font-size: 12px;
+  }
+  ion-note {
+    font-size: 12px;
+    margin-top: -2px;
+    width: 100%;
+    display: block;
+  }
+}
+.loadmore {
+  text-align: center;
+  cursor: pointer;
+}
+ion-refresher {
+  background: white;
+}
 
 ion-fab-list {
   margin-left: -66px;
@@ -54,4 +74,63 @@ ion-title {
     overflow: hidden;
     text-overflow: ellipsis;
     margin-top: 3px
+  }
+
+  .card {
+    .fl {
+      float: left;
+      background: none;
+      ion-icon {
+        font-size:25px;
+      }
+    }
+    ion-avatar { 
+      img {
+        width: 35px;
+        height: 30px;
+      }
+    }
+    .like-content {
+      clear:both;
+    }
+    [col-10] {
+      -webkit-box-flex: 0;
+      -webkit-flex: 0 0 83.33333%;
+      -ms-flex: 0 0 83.33333%;
+      flex: 0 0 83.33333%;
+      width: 83.33333%;
+      max-width: 83.33333%;
+    }
+    [col-2] {
+      -webkit-box-flex: 0;
+      -webkit-flex: 0 0 16.66667%;
+      -ms-flex: 0 0 16.66667%;
+      flex: 0 0 16.66667%;
+      width: 16.66667%;
+      max-width: 16.66667%;
+      button {
+        text-align: center;
+        vertical-align: middle;
+        margin: 47% 0px 0px 0px;
+        background: none;
+      }
+    }
+    .post_title {
+      text-align: left;
+      font-size: 14px;
+      margin-left: 20px;
+      margin-top: 0px;
+    }
+    ul.post_tags {
+      list-style: none;
+      padding-left: 20px;
+    }
+    .image-gallery {
+      clear:both;
+      width:100%;
+    }
+
+    .card-content-description {
+      padding-left: 10px;
+    }
   }

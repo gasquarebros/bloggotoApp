@@ -59,59 +59,57 @@
     </ion-header>
     <ion-content>
       <ion-list>
-        
-          <ion-item >
-            <ion-avatar>
-               <img src="assets/icon/avatar.png">
-            </ion-avatar>
-            <div class="profile-top-section">
-              <p class="profile-username">Hi, Gowtham</p>
-              <p class="profile-action-btn">
-                <a class="edit-profile-btn" href="">edit profile</a>
-                <a class="logout-btn" href="">Logout</a>
-              </p>
-            </div>    
-          </ion-item>
-          <ion-item>
-          <button menuClose ion-item  style="font-size:20px">
-        Profile </button> </ion-item>  
+        <ion-item >
+          <ion-avatar>
+              <img src="assets/icon/avatar.png">
+          </ion-avatar>
+          <div class="profile-top-section">
+            <p class="profile-username">Hi, {{userInfo.customer_username}}</p>
+            <p class="profile-action-btn">
+              <a class="edit-profile-btn" menuClose (click)="profile()">edit profile</a>
+              <a class="logout-btn" menuClose (click)="logout()">Logout</a>
+            </p>
+          </div>    
+        </ion-item>
         <ion-item>
-        <button menuClose ion-item  style="font-size:20px">
-        Messages</button></ion-item> 
+          <a menuClose ion-item class="menu" [routerLink]="['/profile']" routerDirection="root" >Profile</a>
+        </ion-item>  
         <ion-item>
-        <button menuClose ion-item style="font-size:20px">
-         Drafts</button></ion-item> 
+          <a menuClose ion-item class="menu"  style="font-size:20px; background:none;">Messages</a>
+        </ion-item> 
         <ion-item>
-        <button menuClose ion-item style="font-size:20px">
-       My Purchases</button></ion-item>
-       <ion-item>
-        <button menuClose ion-item style="font-size:20px">
-       My Bookings</button></ion-item>
-       <ion-item>
-        <button menuClose ion-item style="font-size:20px">
-       Bank Details</button></ion-item>
-
-       <ion-item-divider color="secondary">
-        <ion-label>
-          Manage
-        </ion-label>
-      </ion-item-divider>
-      <ion-item>
-        <button menuClose ion-item style="font-size:20px">
-        My Sales</button></ion-item>
-       <ion-item>
-        <button menuClose ion-item style="font-size:20px">
-       My Services</button></ion-item>
-       <ion-item>
-        <button menuClose ion-item style="font-size:20px">
-        Orders Received</button></ion-item>
-       <ion-item>
-        <button menuClose ion-item style="font-size:20px">
-        Bookings Received</button></ion-item>
+          <a menuClose ion-item class="menu" style="font-size:20px; background:none;">Drafts</a>
+        </ion-item> 
         <ion-item>
-          <button menuClose ion-item style="font-size:20px">
-         <ion-icon name="ion-star"></ion-icon> Bookings Received</button></ion-item>
-        </ion-list>
+          <a menuClose ion-item class="menu" style="font-size:20px; background:none;">My Purchases</a>
+        </ion-item>
+        <ion-item>
+          <a menuClose ion-item class="menu" style="font-size:20px; background:none;">My Bookings</a>
+        </ion-item>
+        <ion-item>
+          <a menuClose ion-item class="menu" style="font-size:20px; background:none;">Bank Details</a>
+        </ion-item>
+        <ion-item-divider color="secondary">
+          <ion-label>
+            Manage
+          </ion-label>
+        </ion-item-divider>
+        <ion-item>
+          <a menuClose ion-item class="menu" style="font-size:20px; background:none;">My Sales</a>
+        </ion-item>
+        <ion-item>
+          <a menuClose ion-item class="menu" style="font-size:20px; background:none;">My Services</a>
+        </ion-item>
+        <ion-item>
+          <a menuClose ion-item class="menu" style="font-size:20px; background:none;"> Orders Received</a>
+        </ion-item>
+        <ion-item>
+          <a menuClose ion-item class="menu" style="font-size:20px; background:none;">Bookings Received</a>
+        </ion-item>
+        <ion-item>
+          <a menuClose ion-item class="menu" style="font-size:20px; background:none;">Bookings Received</a>
+        </ion-item>
+      </ion-list>
     </ion-content>
   </ion-menu>
   <ion-router-outlet id="content1" main></ion-router-outlet>

@@ -1,8 +1,108 @@
-ion-item{
-    --background: #3880ff;
-    --color: #fff;
-}
-
 ion-button{
     --background: #062f77;
+}
+
+.title-section {
+    font-size:15px;
+    margin-top:20px;
+}
+.server-error {
+    clear:both;
+}
+
+.SelectImage {
+    border-radius: 50%;
+    width: 85px;
+    margin: 0 auto;
+    height: 92px;
+    border: 2px solid #ccc;
+    .AddImage {
+        border-radius: 50%;
+        width: 85px;
+        height: 85px;
+        margin: 0 auto;
+        text-align: center;
+        float: left;
+    }
+    .profile-photo {
+        height: 84px;
+        text-align: center;
+        margin: 0 auto;
+        width: 90%;
+        vertical-align: middle;
+        display: inline-block;
+        font-size: 12px;
+        padding: 21px 18px;
+        margin-left: 5px;
+    }
+    .ImageDiv {
+        position: relative;
+        top: -26px;
+        left: 3px;
+        border-top: 1px solid #CCC;
+        width: 75px;
+        height: 30px;
+        float: left;
+        background-color: grey;
+        border-radius: 0 0px 44px 44px;
+        color: white;
+        padding-left: 13px;
+        padding-top: 5px;
+    }
+}
+
+ion-input {
+}
+.col1 {
+    width: 48%;
+    float: left;
+    margin-right: 10px;
+}
+.col2 {
+    width: 48%;
+    float:right;
+}
+ion-select {
+    padding: 0px;
+    width: 100%;
+    max-width: 100%;
+    position:relative;
+    .select-text {
+        width: 100px !important;
+        max-width: 100px;
+        float: left;
+    }
+    .select-icon {
+        width: 16px;
+    }
+}
+ion-datetime {
+    padding-top: 7px;
+    padding-bottom: 0px;
+    padding-left: 0px;
+    .datetime-text {
+        font-size:14px !important;
+    }
+    ion-label {
+        margin-top:3px;
+    }
+}
+.ion-slider-toggle {
+    ion-toggle {
+        margin-right:15px;
+    }
+    ion-label {
+        margin-right: 0px;
+    }
+}
+ion-label {
+    font-size: 15px !important;
+}
+.submit-btn {
+    width: 50%;
+    margin:0 auto;
+}
+.error-message {
+    color: red;
+    font-size: 11px;
 }

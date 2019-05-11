@@ -1,124 +1,120 @@
-
-<!--
-<app-login-header></app-login-header>
-
- 
-<ion-content padding>
-
-  <ion-item>
-    <ion-avatar>
-      <img src="assets/icon/avatar.png">
-    </ion-avatar>
-    <h6>Hi guest!</h6>
-  </ion-item>
-  <ion-item>
-    
-    <ion-label>All category</ion-label>
-      <ion-select multiple="true">
-          <ion-select-option value="All category">All category</ion-select-option>
-        <ion-select-option value="general">General</ion-select-option>
-        <ion-select-option value="fashion">fashion</ion-select-option>
-        <ion-select-option value="travel">Travel</ion-select-option>
-        <ion-select-option value="Food">Food</ion-select-option>
-        <ion-select-option value="Tech">tech</ion-select-option>
-        <ion-select-option value="Business">business</ion-select-option>
-        <ion-select-option value="health">health</ion-select-option>
-        <ion-select-option value="lifestyle">lifestyle</ion-select-option>
-        <ion-select-option value="Entertainment">Entertainment</ion-select-option>
-        <ion-select-option value="others">others</ion-select-option>
-      </ion-select>
-
-      
-    <ion-label>All</ion-label>
-    <ion-select >
-        <ion-select-option value="All">All</ion-select-option>
-      <ion-select-option value="top blog">Top Blog</ion-select-option>
-      <ion-select-option value="followers only">Followers Only</ion-select-option>
-    </ion-select>
-    </ion-item>
-  
-  <ion-card *ngFor="let name of Names">
-      <ion-item >
-       <ion-avatar>
-          <img src="{{name.image}}">
-       </ion-avatar>
-       <h6>{{name.name}}</h6>
-     </ion-item>
-    
-       <ion-card-content>
-       <img src="assets/icon/logo.png">
-                 
-       </ion-card-content>
-      <hr>
-    
-      </ion-card>
-
-</ion-content>
--->
-<app-login-header></app-login-header>
+<app-login-header [title]="wall"></app-login-header>
 <ion-content>
-  <ion-fab vertical="bottom" horizontal="end" slot="fixed">
-    <ion-fab-button>
-      <ion-icon name="add"></ion-icon>
-    </ion-fab-button>
-    <ion-fab-list side="top" horizontal="start" >
-        <ion-button>Post on Wall</ion-button>
-        <ion-button>Sell Products</ion-button>
-        <ion-button>Post Services</ion-button>
-      </ion-fab-list>
-  </ion-fab>
+    <ion-refresher slot="fixed" 
+    (ionRefresh)="ionRefresh($event)" 
+    (ionPull)="ionPull($event)" 
+    (ionStart)="ionStart($event)">
+      <ion-refresher-content
+        pullingIcon="arrow-dropdown"
+        pullingText="Pull to refresh"
+        refreshingSpinner="circles"
+        refreshingText="Refreshing...">
+      </ion-refresher-content>
+    </ion-refresher>
+    <ion-fab vertical="bottom" horizontal="end" slot="fixed">
+      <ion-fab-button>
+        <ion-icon name="add"></ion-icon>
+      </ion-fab-button>
+      <ion-fab-list side="top" horizontal="start" >
+          <ion-button (click)="createPost()">Post on Wall</ion-button>
+          <ion-button>Sell Products</ion-button>
+          <ion-button>Post Services</ion-button>
+        </ion-fab-list>
+    </ion-fab>
   <ion-item>
     <ion-avatar>
       <img src="assets/icon/avatar.png">
     </ion-avatar>
-    <h6>Hi guest!</h6>
+    <h6>Hi {{userInfo.customer_username}}!</h6>
   </ion-item>
   <hr no-padding no-margin>
   <div >
     <!-- Cards -->
-    <ion-card no-padding padding-bottom no-margin class="card">
+    <ion-card *ngFor="let record of posts" no-margin class="card">
       <ion-row>
         <ion-col col-10>        
           <ion-item>
             <ion-avatar>
-              <img src="assets/icon/avatar.png">
+                <img src="{{record.customer_photo}}">
             </ion-avatar>
-            <h6>Hi guest!</h6>
+            <div class="item-inner">
+              <div class="input-wrapper">
+                <ion-label class="label label-ios">
+                  <h2 style="font-weight: bold" *ngIf="record.customer_type == 0">{{record.customer_first_name}} {{record.customer_last_name}}</h2>
+                  <h2 style="font-weight: bold" *ngIf="record.customer_type != 0">{{record.company_name}}</h2>
+                  <p class="post-category" >{{record.blog_cat_name}}</p>
+                  <ion-note style="font-size: 12px" [innerHTML]="shoePostTime(record)">
+                  </ion-note>
+                </ion-label>
+              </div>
+            </div>
           </ion-item>
         </ion-col >
         <ion-col col-2>
-          <button no-margin no-padding clear color="black" ion-button icon-only style="float: right; top: 15px">
+          <button no-margin no-padding clear color="black" ion-button icon-only style="float: right; top: 15px" (click)="presentPostPopover(record)">
             <ion-icon name="more"></ion-icon>
         </button>
         </ion-col>
       </ion-row>
-      <img src="http://ionicframework.com/dist/preview-app/www/assets/img/advance-card-bttf.png">
-      <p no-margin no-padding>
-          <button clear ion-button icon-only (click)="likeButton()" class="like-btn">
-            <ion-icon no-padding [name]="like_btn.icon_name" class="icon-space"></ion-icon>
-          </button>
-          <button clear ion-button icon-only>
-             <ion-icon no-padding isActive="false" color="black" name="ios-text-outline" class="icon-space" style ="font-weight: bold"></ion-icon>
-          </button>
-          <button clear ion-button icon-only>
-            <ion-icon no-padding isActive="false" color="black" name="paper-plane" class="icon-space"></ion-icon>
-          </button>
-          <button no-margin no-padding clear color="black" ion-button icon-only style="float: right">
-            <ion-icon name="ios-bookmark-outline"></ion-icon>
-          </button>
-      </p>
+      <h4 class="post_title">
+        <a>{{record.post_title}}</a>
+      </h4>
+      <ul class="post_tags">
+        <li *ngFor="let tagNames of record.post_tag_names">
+            <a>#{{tagNames.username}}</a>
+        </li>
+      </ul>
+      <div overflow-scroll="true" class="image-gallery" *ngIf="record.post_photo.length > 0">
+        <ion-slides disable-scroll="false" *ngIf="record.post_photo.length > 1" class="image-slider" loop="true" pager="true" slidesPerView="2">
+          <ion-slide *ngFor="let img of record.post_photo">
+                <ion-img [src]="img"></ion-img>
+          </ion-slide>
+        </ion-slides>
+        <ion-img *ngIf="record.post_photo.length == 1" [src]="record.post_photo[0]"></ion-img>
+      </div>
+      <div *ngIf="record.post_embed_video_url">
+        <!--<iframe width="100%"
+            height="200"
+            [src]="checkYouTubeVideo(record.post_embed_video_url)"
+            (load)="checkYouTubeVideo(record.post_embed_video_url)"
+            frameborder="0"
+            allowfullscreen></iframe>-->
+      </div>
+      <video *ngIf="record.post_video" class="autoplay" poster="PreviewImage.jpeg"  width="100%"  controls="controls" muted>
+        <source src="{{record.post_video}}" type="video/webm" />
+        <source src="{{record.post_video}}" type="video/mp4" />
+        <source src="{{record.post_video}}" type="video/ogg" />
+        your  browser does not support the video tag.
+      </video>
       <hr>
-
-      <ion-card-content>
-        <p class="like-content"><ion-icon name="heart"></ion-icon> 250 likes</p>
-        <p><b>techcrunch</b> Wait a minute. Wait a minute, Doc. Uhhh... Are you telling me that you built a time machine... out of a DeLorean?! Whoa. This is heavy.</p>
+      <ion-card-content class="card-content-description">
+        <p no-margin no-padding>
+            <button clear ion-button icon-only (click)="likeButton(record)" class="like-btn fl">
+              <ion-icon [hidden]= "checkliked_user(record,'lkesuser')" no-padding [name]="like_btn.icon_name" class="icon-space"></ion-icon>
+              <ion-icon [hidden]= "checkunliked_user(record, 'lkesuser')" name="heart-empty"></ion-icon>
+            </button>
+            <button clear ion-button icon-only class="fl" (click)="showcomment(record)">
+                <ion-icon name="chatboxes" color="white"></ion-icon>
+            </button>
+            <button clear ion-button icon-only class="fl" (click)="bookmark(record)">
+                <ion-icon  [hidden]= "checkliked_user(record, 'favoruser')" name="bookmark"></ion-icon>
+                <p style="margin: 1px 0px 0px 0px;" [hidden]= "checkunliked_user(record, 'favoruser')">
+                <svg style="height: 23px; width: 23px;"  xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512" class="s-ion-icon"><path d="M128 80v380c0 3.3 3.8 5.2 6.4 3.2l116.8-92c2.9-2.1 6.8-2.1 9.6 0l116.8 92c2.6 2 6.4.1 6.4-3.2V80c0-17.7-14.3-32-32-32H160c-17.7 0-32 14.3-32 32z" fill="#fff" stroke="black" stroke-linecap="butt" stroke-linejoin="miter" stroke-width="20"></path></svg>
+                </p>
+            </button>
+            <button no-margin no-padding clear color="black" ion-button icon-only class="fl" (click)="sharepost()">
+                <ion-icon name="share"></ion-icon>
+            </button>
+        </p>
+        <p class="like-content"><ion-icon name="heart"></ion-icon> {{record.lkesuser.length}} likes</p>
+        <div [innerHTML]="record.post_description"></div>
       
-        <ion-note style="font-size: 12px">
-          11h ago
-        </ion-note>
+        
       </ion-card-content>
 
     </ion-card>
-
+    <ion-infinite-scroll (ionInfinite)="ionRefresh($event, nextOffset)" loadingSpinner="bubbles" loadingText="Loading Users...">
+      <ion-infinite-scroll-content></ion-infinite-scroll-content>
+    </ion-infinite-scroll>
   </div>
 </ion-content>

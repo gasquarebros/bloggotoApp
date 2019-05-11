@@ -1,0 +1,255 @@
+.comment-overall-sec {
+.uiScrollableAreaContent {
+    width: 100%;
+    margin-top: 22px;
+}
+.fbPhotosSnowliftFeedback {
+    width: 100%;
+    float: left;
+    padding: 0px 7px;
+    div {
+        width: 100%;
+        float: left;
+    }
+}
+.fr {
+    float:right !important;
+    span {
+        float: right;
+    }
+}
+.UFIShareRow {
+    width: 100%;
+    float: left;
+    .backbtn {
+        float:left;
+        width: 20%;
+    }
+    .comments_count {
+        width: 50%;
+    }
+    
+}
+.accessible_elem {
+    width: 100%;
+    float: left;
+}
+ion-content {
+    height: calc(100vh - 110px);
+    margin-top: 38px;
+    top: 38px;
+}
+ion-card {
+    box-shadow: none;
+    border-bottom: 1px solid #ccc;
+    margin-bottom: 10px;
+    border-radius: 0px;
+}
+.comments-section {
+    width: 100%;
+    float: left;
+    .UFIComment {
+        width: 100%;
+        display:block;
+        float:left; 
+        .lfloat {
+            float:left;
+            width: 20%;
+            ion-avatar {
+                img {
+                    width: 45px;
+                    height: 45px;
+                }
+            }
+        }
+        .UFIImageBlockContent {
+            width: 80%;
+            float:left;
+            display: block;
+            .UFICommentContent {
+                width: 100%;
+                float:left;
+                display:block;
+                .UFICommentActorAndBody {
+                    width: 90%;
+                    float:left;
+                    display: block;
+                    .UFICommentActorName {
+                        padding-right: 7px;
+                        font-weight: 600;
+                    }
+                    span {
+                        font-size: 14px;
+                    }
+                }
+                .comment-manage {
+                    width: 10%;
+                    float:left;
+                    display: block;
+                }
+            }
+            .UFICommentActions {
+                clear: both;
+                width:100%;
+                .uiLinkSubtle {
+                    text-decoration: none;
+                    font-size:12px;
+                }
+            }
+        }
+    }
+}
+.post-comments {
+    position: fixed;
+    bottom: 0;
+    background: white;
+    .comments-post-sec {
+        margin: 5px 0px;
+        ion-avatar {
+            width: 25px;
+            height: 25px;
+            float: left;
+            margin-top: 9px;
+        }
+        .item-inner {
+            width: 75%;
+            padding-left: 8px;
+        }
+        .post-comments-action {
+            width: 10%;
+        }
+    }
+}
+}
+.postcreation {
+    .uiScrollableAreaContent {
+        width: 100%;
+        margin-top: 22px;
+    }
+    ion-content {
+        height: calc(100vh - 52px);
+        margin-top: 38px;
+        top: 25px;
+    }
+
+    .fbPhotosSnowliftFeedback {
+        width: 100%;
+        float: left;
+        padding: 0px 7px;
+        div {
+            width: 100%;
+            float: left;
+        }
+    }
+    .fr {
+        float:right !important;
+        span {
+            float: right;
+        }
+    }
+    .UFIShareRow {
+        width: 100%;
+        float: left;
+        .backbtn {
+            float:left;
+            width: 35%
+        }
+        .comments_count {
+            width: 50%;
+        }
+        
+    }
+    .post_top-section {
+        background: #fff;
+        border-bottom: 1px solid #dadde1;
+        padding: 8px;
+        .user-image-section {
+            margin-right: 8px;
+            width: auto;
+            .img {
+                vertical-align: middle;
+            }
+            ion-avatar { 
+                img {
+                    width: 48px;
+                    height: 48px;
+                }
+            }
+        }
+        .user-info-section {
+            flex: 1;
+            margin-top: 5px;
+            width: calc( 100% - 70px);
+            .username-sec {
+                color: #444950;
+                font-size: 16px;
+                line-height: 35px;
+                margin-bottom: 4px;
+            }
+        }
+    }
+    .post-section {
+        background-color: #fff;
+        overflow: hidden;
+        position: relative;
+        background-size: cover;
+        box-shadow: none;
+        .mentions {
+            display: block;
+            position: relative;
+            .active {
+                background: #3880ff;
+                color: #fff;
+            }
+            .mentions-placeholder {
+                padding: 12px;
+                border-bottom: 1px solid #ccc;
+            }
+            .composerInput {
+                font-size: 14px;
+                padding: 12px;
+                background: transparent;
+                border: 0;
+                box-shadow: none;
+                height: 100px;
+                outline: none;
+                width: 100%;
+                -webkit-appearance: none;
+                box-sizing: border-box;
+                display: block;
+                letter-spacing: 0;
+                -webkit-line-break: after-white-space;
+                line-height: 148%;
+                margin: 0;
+                -webkit-nbsp-mode: space;
+                overflow: hidden;
+                overflow-y: auto;
+                position: relative;
+                resize: none;
+                text-indent: 0;
+                white-space: pre-wrap;
+                word-wrap: break-word;
+                z-index: 4;
+                border-bottom: 1px solid #ccc;
+            }
+            .mentions-measurer {
+                z-index: 1;
+            }
+            .ImageDiv {
+                width: 48%;
+                padding: 10px;
+                background: #ccc;
+                margin-top: 10px;
+                text-align: center;
+                cursor: pointer;
+            }
+            .mrgrt10 {
+                margin-right: 7px;
+            }
+        }
+    }
+    .error-message {
+        color: red;
+        font-size: 11px;
+    }
+}

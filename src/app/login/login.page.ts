@@ -4,12 +4,14 @@ import { Router } from '@angular/router';
 import { AuthService } from '../auth/auth.service';
 import { RestApiService } from '../rest-api.service';
 import { Storage } from '@ionic/storage';
+import { Events } from '@ionic/angular';
+import { AppComponent } from '../app.component';
 
 @Component({
   selector: 'app-login',
   templateUrl: './login.page.html',
   styleUrls: ['./login.page.scss'],
-  providers: [AuthService]
+  providers: [AuthService, Events]
 })
 export class LoginPage implements OnInit {
   public formError: string;
@@ -25,7 +27,7 @@ export class LoginPage implements OnInit {
     'password': [
       { type: 'required', message: 'Password is required.' },
       { type: 'minlength', message: 'Password must be at least 5 characters long.' },
-      { type: 'maxlength', message: 'Username cannot be more than 25 characters long.' },
+      { type: 'maxlength', message: 'Password cannot be more than 25 characters long.' },
       { type: 'pattern', message: 'Your password must contain at least one uppercase, one lowercase, and one number.' }
     ],
   };
@@ -34,6 +36,8 @@ export class LoginPage implements OnInit {
     public api: RestApiService,
     private authService: AuthService,
     private storage: Storage,
+    public events: Events,
+    public myApp: AppComponent,
     private router: Router) {
   }
 
@@ -73,6 +77,8 @@ export class LoginPage implements OnInit {
         if (res[0].status === 'success') {
           this.storage.set('ACCESS_TOKEN', res[0].user_data.access_token);
           this.storage.set('USER_DATA', res[0].user_data);
+          this.events.publish('user:login');
+          this.myApp.loggedIn();
           this.router.navigateByUrl('/launch');
         } else {
           this.formError = res[0].message;
@@ -81,7 +87,7 @@ export class LoginPage implements OnInit {
     }, err => {
       console.log(err);
     });
-    this.storage.set('ACCESS_TOKEN', 'asdhsadusa-asdasdsad-adasd-sadasda');
+    /*this.storage.set('ACCESS_TOKEN', 'asdhsadusa-asdasdsad-adasd-sadasda');
     this.storage.set('USER_DATA', {"bg_user_id": "12",
     "bg_first_name": "GA",
     "bg_last_name": "squarebros",
@@ -91,7 +97,8 @@ export class LoginPage implements OnInit {
     "customer_username": "gasquarebros",
     "access_token": "bWeL09463cTutvZo",
     "bg_user_profile_picture": "https://www.bloggoto.com/media/customers//23327dcc89fa92683f31464b8f08adc0.jpg"});
-    this.router.navigateByUrl('/launch');
+    
+    this.router.navigateByUrl('/launch');*/
   }
   OpenSignup() {
     this.router.navigateByUrl('/signup');

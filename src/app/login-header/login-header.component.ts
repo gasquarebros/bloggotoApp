@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, Input } from '@angular/core';
 
 @Component({
   selector: 'app-login-header',
@@ -6,6 +6,9 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./login-header.component.scss'],
 })
 export class LoginHeaderComponent implements OnInit {
+
+  @Input()
+  public title: string;
 
   constructor() { }
 

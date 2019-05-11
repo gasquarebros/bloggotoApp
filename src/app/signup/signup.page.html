@@ -1,38 +1,88 @@
 <ion-content>
-
-    
-
-  <form  #form="ngForm" (ngSubmit)="register(form)">
+  <form  [formGroup]="validations_form"  (ngSubmit)="register(validations_form.value)" >
     <ion-grid>
       <ion-row justify-content-center>
         <ion-col align-self-center size-md="6" size-lg="5" size-xs="12">
           <div text-center>
-            <h3>Create your account!</h3>
+            <h3 class="title-section">Let us Understand you to give you better experience!</h3>
           </div>
-          <div padding>
-            <ion-item>
-              <ion-input  name="name" type="text" placeholder="Name" ngModel required></ion-input>
-            </ion-item>
-            <ion-item>
-              <ion-input name="email" type="email" placeholder="your@email.com" ngModel required></ion-input>
-            </ion-item>
-            <ion-item>
-              <ion-input name="password" type="password" placeholder="Password" ngModel required></ion-input>
-            </ion-item>
-            <ion-item>
-              <ion-input name="confirm" type="password" placeholder="Password again" ngModel required></ion-input>
-            </ion-item>
+          <div>
             <div class="SelectImage">
-              <div class="ImageDiv" [style.backgroundImage]="'url(' + DefaultImg + ')'" (click)="presentActionSheet()"> select
-              <img [src]="base64Image" *ngIf="base64Image" class="AddImage">
+              <img [src]="base64Image" *ngIf="base64Image" class="AddImage">  
+              <div class="profile-photo" *ngIf="!base64Image">Profile Photo</div>
+              <div class="ImageDiv" [style.backgroundImage]="'url(' + DefaultImg + ')'" (click)="presentActionSheet()"> Upload
               </div>
+            </div>
+            <div class="error-message server-error" [innerHTML]="formError">
+            </div>
+            <ion-item>
+              <div class="col1">
+                <ion-input  formControlName="firstname" type="text" placeholder="First Name"  required></ion-input>
+                <div class="validation-errors">
+                  <ng-container *ngFor="let validation of validation_messages.firstname">
+                    <div class="error-message" *ngIf="validations_form.get('firstname').hasError(validation.type) && (validations_form.get('firstname').dirty || validations_form.get('firstname').touched)">
+                      <ion-icon name="information-circle-outline"></ion-icon> {{ validation.message }}
+                    </div>
+                  </ng-container>
+                </div>
               </div>
-      
-              <ion-button (click)="openCam()" >Open Camera</ion-button>
-      <img src="{{image}}">
+              <div class="col2">
+                <ion-input  formControlName="lastname" type="text" placeholder="Last Name" ></ion-input>
+              </div>
+            </ion-item>
+            <ion-item>
+              <ion-input  formControlName="username" type="text" placeholder="Username" required></ion-input>
+              <div class="validation-errors">
+                  <ng-container *ngFor="let validation of validation_messages.username">
+                    <div class="error-message" *ngIf="validations_form.get('username').hasError(validation.type) && (validations_form.get('username').dirty || validations_form.get('username').touched)">
+                      <ion-icon name="information-circle-outline"></ion-icon> {{ validation.message }}
+                    </div>
+                  </ng-container>
+                </div>
+            </ion-item>
+            <ion-item>
+              <div class="col1">
+                <ion-datetime formControlName="dob" display-format="MMM DD, YYYY" aria-placeholder="DOB" placeholder="DOB"></ion-datetime>
+              </div>
+              <div class="col2">
+                  <ion-select formControlName="gender" placeholder="Select Gender">
+                    <ion-select-option value="female">Female</ion-select-option>
+                    <ion-select-option value="male">Male</ion-select-option>
+                  </ion-select>
+              </div>
+            </ion-item>
+            <ion-item>
+              <ion-input formControlName="email" type="email" placeholder="Email ID" required></ion-input>
+              <div class="validation-errors">
+                  <ng-container *ngFor="let validation of validation_messages.email">
+                    <div class="error-message" *ngIf="validations_form.get('email').hasError(validation.type) && (validations_form.get('email').dirty || validations_form.get('email').touched)">
+                      <ion-icon name="information-circle-outline"></ion-icon> {{ validation.message }}
+                    </div>
+                  </ng-container>
+                </div>
+            </ion-item>
+            <ion-item>
+              <ion-input formControlName="password" type="password" placeholder="Password"  required></ion-input>
+              <div class="validation-errors">
+                  <ng-container *ngFor="let validation of validation_messages.password">
+                    <div class="error-message" *ngIf="validations_form.get('password').hasError(validation.type) && (validations_form.get('password').dirty || validations_form.get('password').touched)">
+                      <ion-icon name="information-circle-outline"></ion-icon> {{ validation.message }}
+                    </div>
+                  </ng-container>
+                </div>
+            </ion-item>
+            <ion-item class="ion-slider-toggle">
+              <ion-label class="usertype-label">I'm Person</ion-label>
+              <ion-toggle formControlName="usertype" color ="secondary"  (click)="userTypeToggle()"></ion-toggle>
+              <ion-label class="usertype-label">I'm Business</ion-label>
+            </ion-item>
+            <ion-item *ngIf="toggleAction == true">
+                <ion-input  formControlName="companyname" type="text" placeholder="Company Name" ></ion-input>  
+            </ion-item>
+                        
           </div>
-          <div padding>
-            <ion-button  size="large" type="submit" [disabled]="form.invalid" expand="block">Register</ion-button>
+          <div padding> 
+            <ion-button class="submit-btn"  size="small" type="submit" [disabled]="!validations_form.valid" expand="block">Signup</ion-button>
           </div>
         </ion-col>
       </ion-row>

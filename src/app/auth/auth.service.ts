@@ -61,4 +61,8 @@ export class AuthService {
     });*/
   }
 
+  removeUserInfo() {
+    return this.storage.clear();
+  }
+
 }

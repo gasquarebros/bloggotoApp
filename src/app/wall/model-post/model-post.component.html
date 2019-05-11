@@ -1,0 +1,179 @@
+<div class="comment-overall-sec" *ngIf="modalType === 'comment'">
+  <div class="uiScrollableAreaContent " >
+    <div class="fbPhotosSnowliftFeedback" id="fbPhotoSnowliftFeedback">
+      <div class="">
+        <div class="uiUfi UFIContainer _3-a6 _4eno _1blz _69ad _65_9 fbPhotosSnowliftUfi _5vsj" id="u_jsonp_3_3">
+          <div class="UFIList">
+            <div class="UFIRow UFIShareRow">
+              <div class="backbtn">
+                <a class="UFIShareLink" (click)="close()" >&lt; Back </a>
+              </div>
+              <div class="comments_count fr">
+                <span class="fcg">{{count}} comments</span>
+              </div>
+            </div>
+            <h6 class="accessible_elem">Comments</h6>
+            <ion-content>
+            <div class="comments-section">
+              <div>
+                <div id="comment_js_18h" class="UFIRow _48ph _48pi UFIComment _4oep" role="article" aria-label="Comment">
+                  <div class="_3b-9">
+                    <ion-card *ngFor="let record of commentsData" no-margin class="card">
+                    <div>
+                      <div direction="left" class="clearfix">
+                        <div class="_ohe lfloat">
+                          <ion-avatar>
+                              <img alt="{{record.customer_first_name}} {{record.customer_last_name}}" src="{{record.customer_photo}}">
+                          </ion-avatar>
+                        </div>
+                        <div class="UFIImageBlockContent">
+                            <div class="UFICommentContentBlock">
+                              <div class="UFICommentContent">
+                                  <div class=" UFICommentActorAndBody">
+                                    <div class="UFICommentActorAndBodySpacing">
+                                      <span>
+                                        <span class=" UFICommentActorName">{{record.customer_first_name}} {{record.customer_last_name}}</span>
+                                      </span> 
+                                      <span class="UFICommentBody">
+                                        <span [innerHTML] = "record.post_comment_message"></span>
+                                      </span>
+                                    </div>
+                                  </div>
+                                  <div class="comment-manage">
+                                      <button *ngIf="userInfo.bg_user_id == record.post_comment_user_id" no-margin no-padding clear color="black" ion-button icon-only style="float: right; margin-top: 15px; background-color: white;" (click)="deleteComment(record)">
+                                        <ion-icon ios="ios-trash" md="md-trash"></ion-icon>
+                                      </button>
+                                  </div>
+                              </div>
+                              <div class="fsm fwn fcg UFICommentActions"><span><a class="uiLinkSubtle"><abbr class="UFISutroCommentTimestamp livetimestamp" [innerHTML]="shoePostTime(record)" ></abbr></a></span></div>
+                            </div>
+                        </div>
+                      </div>
+                    </div>
+                    </ion-card>
+                  </div>
+                </div>
+              </div>
+            </div>
+            </ion-content>
+            <div class="post-comments">
+                <form  [formGroup]="validations_form"  (ngSubmit)="postComment(validations_form.value)" >
+                  <div class="comments-post-sec">
+                    <ion-avatar>
+                        <!--<img src="{{userInfo.bg_user_profile_picture}}">-->
+                        <img src="http://localhost/bloggotoweb/media/customers/679f93c626a802991421a3ca2f273151.jpg">
+                    </ion-avatar>
+                    <div class="item-inner">
+                        <ion-textarea formControlName="postcomments" rows="1" cols="20" placeholder="Post your comments"></ion-textarea>
+                    </div>
+                    <div class="post-comments-action">
+                      <ion-button class="submit-btn"  size="small" type="submit" [disabled]="!validations_form.valid" expand="block">></ion-button>
+                    </div>
+                  </div>
+                </form>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+<div class="postcreation" *ngIf="modalType === 'post'">
+  <div class="uiScrollableAreaContent" >
+    <div class="fbPhotosSnowliftFeedback">
+      <div class="">
+        <div class="uiUfi UFIContainer _3-a6 _4eno _1blz _69ad _65_9 fbPhotosSnowliftUfi _5vsj" id="u_jsonp_3_3">
+          <div class="UFIList">
+            <div class="UFIRow UFIShareRow">
+              <div class="backbtn">
+                <a class="UFIShareLink" (click)="close()" >&lt; Create post </a>
+              </div>
+              <div class="comments_count fr">
+                <span class="fcg"> | post</span>
+              </div>
+            </div>
+            <ion-content>
+                <form  [formGroup]="validations_postform"  (ngSubmit)="newPost(validations_postform.value)" >
+                    <div class="post_top-section">
+                        <div class="user-image-section">
+                          <div class="img _1-yc profpic" aria-label="userInfo.customer_username" role="img" style="background:#d8dce6;background-size:100% 100%;-webkit-background-size:100% 100%;width:48px;height:48px;">
+                              <ion-avatar>
+                                <img [src]="userInfo.bg_user_profile_picture">
+                              </ion-avatar>
+                          </div>
+                        </div>
+                        <div class="user-info-section">
+                            <div class="username-sec">{{userInfo.customer_username}}</div>
+                        </div>
+                    </div>
+                    <div class="post-section"> 
+                      <div class="error-message server-error" [innerHTML]="formError">
+                      </div>
+                      <div class="mentions">
+                          <ion-item>
+                            <ion-label>Choose your category</ion-label>
+                          </ion-item>
+                          <ion-chip *ngFor="let category of postCategory;let i=index;" (click)="clickCategory(category.key)" [ngClass]="{'active' : postCategorySelect == category.key}">
+                            <ion-label>
+                                {{category.value}}
+                            </ion-label>
+                          </ion-chip>
+                          <ion-item>
+                            <ion-label>Choose what you posting</ion-label>
+                          </ion-item>
+                          <ion-chip *ngFor="let postTypes of postType;let i=index;" (click)="clickType(postTypes.key)" [ngClass]="{'active' : postTypeSelected == postTypes.key}">
+                            <ion-label >
+                                {{postTypes.value}}
+                            </ion-label>
+                          </ion-chip>
+                          <div class="mentions-placeholder" data-sigil="js_placeholder">
+                              <ion-input type="text" formControlName="title" placeholder="Enter Title" value="" required></ion-input>
+                              <div class="validation-errors">
+                                <ng-container *ngFor="let validation of validation_messages.title">
+                                  <div class="error-message" *ngIf="validations_postform.get('title').hasError(validation.type) && (validations_postform.get('title').dirty || validations_postform.get('title').touched)">
+                                    <ion-icon name="information-circle-outline"></ion-icon> {{ validation.message }}
+                                  </div>
+                                </ng-container>
+                              </div>
+                          </div>
+                          <ion-textarea formControlName="description" class="composerInput mentions-input" rows="6" cols="20" placeholder="What's on your mind?" required></ion-textarea>
+                          <div class="validation-errors">
+                            <ng-container *ngFor="let validation of validation_messages.description">
+                              <div class="error-message" *ngIf="validations_postform.get('description').hasError(validation.type) && (validations_postform.get('description').dirty || validations_postform.get('description').touched)">
+                                <ion-icon name="information-circle-outline"></ion-icon> {{ validation.message }}
+                              </div>
+                            </ng-container>
+                          </div>
+                          <div class="mentions-placeholder" data-sigil="js_placeholder">
+                              <ion-input type="text" formControlName="youtubeurl" placeholder="Youtube Video URL" value=""></ion-input>
+                          </div>
+
+                          <div class="mentions-placeholder">
+                              <ion-select formControlName="tagging" placeholder="Tag Bloggotians" multiple okText="Okay" cancelText="Dismiss">
+                                  <ion-select-option *ngFor="let follower of followers;let i=index;"
+                                                    [value]='follower.key'
+                                                    [selected]="i===0">
+                                      {{follower.value}}
+                                  </ion-select-option> 
+                                </ion-select>
+                          </div>
+                          <div class="ImageDiv mrgrt10" [style.backgroundImage]="'url(' + DefaultImg + ')'" (click)="presentActionSheet()"> Browse Image
+                          </div>
+                          <div class="ImageDiv" *ngIf="postTypeSelected != 'video'" (click)="uploadPdf()"> Browse PDF
+                          </div>
+                          <div class="ImageDiv" *ngIf="postTypeSelected == 'video'" (click)="uploadPdf()"> Browse Video
+                          </div>
+                          <div padding> 
+                            <ion-button class="submit-btn"  size="small" type="button" [disabled]="!validations_postform.valid" expand="block">Save as Draft</ion-button>
+                            <ion-button class="submit-btn" size="small" type="submit" [disabled]="!validations_postform.valid" expand="block">Publish</ion-button>
+                          </div>
+                      </div>
+                    </div>
+                </form>  
+            </ion-content>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

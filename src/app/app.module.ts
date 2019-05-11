@@ -1,7 +1,7 @@
 import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
 import { RouteReuseStrategy } from '@angular/router';
-
+import { LoginHeaderComponent } from './login-header/login-header.component';
 import { IonicModule, IonicRouteStrategy } from '@ionic/angular';
 import { SplashScreen } from '@ionic-native/splash-screen/ngx';
 import { StatusBar } from '@ionic-native/status-bar/ngx';
@@ -12,10 +12,11 @@ import { HttpModule } from '@angular/http';
 import { AuthService } from './auth/auth.service';
 import { IonicStorageModule  } from '@ionic/storage';
 import { Camera } from '@ionic-native/camera/ngx';
+// import { YoutubeVideoPlayer } from '@ionic-native/youtube-video-player';
 
 @NgModule({
   declarations: [
-  AppComponent
+  AppComponent,
 ],
   entryComponents: [
     AppComponent
@@ -33,7 +34,10 @@ import { Camera } from '@ionic-native/camera/ngx';
     SplashScreen,
     AuthService,
     Camera,
+    // YoutubeVideoPlayer,
     { provide: RouteReuseStrategy, useClass: IonicRouteStrategy }
+  ],
+  exports: [
   ],
   bootstrap: [AppComponent]
 })

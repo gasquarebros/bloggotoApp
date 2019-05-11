@@ -24,10 +24,8 @@ const routes: Routes = [
   { path: 'static/:any', loadChildren: './static/static.module#StaticPageModule' },
   { path: 'wall', loadChildren: './wall/wall.module#WallPageModule' },
   { path: 'signup', loadChildren: './signup/signup.module#SignupPageModule' },
-
-
-
-
+  { path: 'profile', loadChildren: './profile/profile.module#ProfilePageModule' },
+  { path: 'profile', loadChildren: './profile/profile.module#ProfilePageModule' },
 ];
 
 @NgModule({
