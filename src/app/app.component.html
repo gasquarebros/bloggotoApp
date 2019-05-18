@@ -66,16 +66,16 @@
           <div class="profile-top-section">
             <p class="profile-username">Hi, {{userInfo.customer_username}}</p>
             <p class="profile-action-btn">
-              <a class="edit-profile-btn" menuClose (click)="profile()">edit profile</a>
-              <a class="logout-btn" menuClose (click)="logout()">Logout</a>
+              <button  class="edit-profile-btn nobgm" menuClose (click)="profile()">edit profile</button>
+              <button  class="logout-btn nobgm" menuClose (click)="logout()">Logout</button>
             </p>
           </div>    
         </ion-item>
         <ion-item>
-          <a menuClose ion-item class="menu" [routerLink]="['/profile']" routerDirection="root" >Profile</a>
+          <button  menuClose ion-item class="menu" (click)="profile()" [routerLink]="['/profile']" routerDirection="root" >Profile</button>
         </ion-item>  
         <ion-item>
-          <a menuClose ion-item class="menu"  style="font-size:20px; background:none;">Messages</a>
+          <button  menuClose ion-item class="menu"  style="font-size:20px; background:none;">Messages</button>
         </ion-item> 
         <ion-item>
           <a menuClose ion-item class="menu" style="font-size:20px; background:none;">Drafts</a>

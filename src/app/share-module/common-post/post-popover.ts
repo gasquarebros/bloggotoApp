@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { ToastController, PopoverController, NavParams } from '@ionic/angular';
-import { RestApiService } from '../rest-api.service';
+import { RestApiService } from '../../rest-api.service';
 
 @Component({
   template: `

@@ -1,7 +1,7 @@
 import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
 import { RouteReuseStrategy } from '@angular/router';
-import { LoginHeaderComponent } from './login-header/login-header.component';
+// import { LoginHeaderComponent } from './login-header/login-header.component';
 import { IonicModule, IonicRouteStrategy } from '@ionic/angular';
 import { SplashScreen } from '@ionic-native/splash-screen/ngx';
 import { StatusBar } from '@ionic-native/status-bar/ngx';
@@ -12,6 +12,7 @@ import { HttpModule } from '@angular/http';
 import { AuthService } from './auth/auth.service';
 import { IonicStorageModule  } from '@ionic/storage';
 import { Camera } from '@ionic-native/camera/ngx';
+import { ShareModulePageModule } from './share-module/share-module.module';
 // import { YoutubeVideoPlayer } from '@ionic-native/youtube-video-player';
 
 @NgModule({
@@ -27,7 +28,8 @@ import { Camera } from '@ionic-native/camera/ngx';
     AppRoutingModule,
     HttpClientModule,
     HttpModule,
-    IonicStorageModule.forRoot()
+    IonicStorageModule.forRoot(),
+    ShareModulePageModule
   ],
   providers: [
     StatusBar,

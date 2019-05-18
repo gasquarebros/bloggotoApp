@@ -95,8 +95,8 @@ export class ModelPostComponent implements OnInit {
     this.api.getStaticData('post/comments?post_slug=' + this.postInfo.post_slug, this.reqOpts).subscribe(result => {
       const res: any = result;
       if (res !== undefined) {
-        if (res.status === 'success') {
-          this.commentsData = res.html.records;
+        if (res[0].status === 'success') {
+          this.commentsData = res[0].html.records;
           this.count = this.commentsData.length;
         } else {
           this.presentToast(res[0].message);
@@ -176,7 +176,7 @@ export class ModelPostComponent implements OnInit {
     const body = new FormData();
     body.append('post_record', this.postInfo.post_id);
     body.append('user_id', this.userInfo.bg_user_id);
-    body.append('action', form.username);
+    body.append('action', 'comment');
     body.append('comments', form.postcomments);
     this.api.postData('post/post_addcomments', body).subscribe(result => {
       const res: any = result;

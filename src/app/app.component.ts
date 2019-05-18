@@ -5,7 +5,7 @@ import { SplashScreen } from '@ionic-native/splash-screen/ngx';
 import { StatusBar } from '@ionic-native/status-bar/ngx';
 import { AuthService } from './auth/auth.service';
 import { Router } from '@angular/router';
-import { Events } from '@ionic/angular';
+import { Events, MenuController } from '@ionic/angular';
 
 
 @Component({
@@ -35,7 +35,8 @@ export class AppComponent {
     private statusBar: StatusBar,
     public authService: AuthService,
     public router: Router,
-    public events: Events
+    public events: Events,
+    public menuCtrl: MenuController
   ) {
     this.initializeApp();
     this.events.subscribe('user:login', () => {
@@ -67,6 +68,6 @@ export class AppComponent {
     this.router.navigateByUrl('/login');
   }
   profile() {
-
+    this.menuCtrl.close();
   }
 }

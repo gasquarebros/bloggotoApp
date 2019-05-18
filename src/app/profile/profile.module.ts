@@ -1,11 +1,11 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { FormsModule } from '@angular/forms';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { Routes, RouterModule } from '@angular/router';
-import { LoginHeaderComponent } from '../login-header/login-header.component';
 import { IonicModule } from '@ionic/angular';
 
 import { ProfilePage } from './profile.page';
+import { ShareModulePageModule } from '../share-module/share-module.module';
 
 const routes: Routes = [
   {
@@ -19,8 +19,12 @@ const routes: Routes = [
     CommonModule,
     FormsModule,
     IonicModule,
-    RouterModule.forChild(routes)
+    ReactiveFormsModule,
+    RouterModule.forChild(routes),
+    ShareModulePageModule
   ],
-  declarations: [ProfilePage, LoginHeaderComponent]
+  declarations: [
+    ProfilePage
+  ]
 })
 export class ProfilePageModule {}

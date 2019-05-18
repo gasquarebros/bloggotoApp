@@ -1,0 +1,219 @@
+.fl {
+    float:left;
+}
+.fr {
+    float:right;
+}
+.txtcenter {
+    text-align: center;
+}
+.txtellipsis {
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    overflow: hidden;
+}
+.info-section {
+    width: 100%;
+    display: block;
+    float: left;
+    .top-section {
+        width: 100%;
+        display: block;
+        float: left;
+        .top-left {
+            width: 42%;
+            .prof-sec {
+                margin-bottom: 14px;
+            }
+            ion-item {
+                margin: 0 auto;
+                width: 112px;
+                height: 75px;
+            }
+            .profilepic {
+                width: 75px;
+                height: 75px;
+                border-radius: 50%;
+                float: left;
+            }
+            .badge {
+                position: absolute;
+                top: 50px;
+                left: 69px;
+                width: 25px;
+                height: 25px;
+                background-color: cornflowerblue;
+                border-radius: 50%;
+                font-size: 24px;
+                color: white;
+                font-weight: 400;
+                padding: 0;
+                margin: 0;
+            }
+            .profilename {
+                padding: 0px;
+                margin: 0 auto;
+                text-align: center;
+            }
+            .profession {
+                padding: 0px;
+                width: 100%;
+                float: left;
+                margin: 0px;
+                font-size: 13px;
+                margin-left: 10px;
+                word-break: break-all;
+                li {
+                    width: auto;
+                    float: left;
+                    list-style-type: none;
+                }
+                li:before {
+                    content: "\2219";
+                    font-size: 2.5em;
+                    line-height: 0;
+                    position: relative;
+                    top: 8px;
+                    padding-right: 2px;
+                }
+            }
+        }
+        .top-right {
+            width: 58%;
+            .counting {
+                font-size: 16px;
+                font-weight: 800;
+                margin: 0;
+                span {
+                    font-size: 13px;
+                    font-weight: 400;
+                }
+            }
+            .buttons-action {
+                border: 1px solid black;
+                text-align: center;
+                width: 96%;
+                margin: 8px 0px 0px 0px;
+                cursor: pointer;
+            }
+            p.bio {
+                float: left;
+                margin-top: 10px;
+                font-size: 13px;
+                height: 60px;
+                margin-bottom: 0px;
+                overflow-y: hidden;
+                overflow: hidden;
+                display: -webkit-box;
+                -webkit-line-clamp: 4;
+                -webkit-box-orient: vertical;
+            }
+        }
+    }
+    .middle-section {        
+        width: 100%;
+        float: left;
+        .section {
+            padding: 0px;
+            margin: 10px 0px;
+            width: 100%;
+            float: left;
+            border: 1px solid black;
+            li {
+                list-style: none;
+                width: 33.3%;
+                float: left;
+                text-align: center;
+                padding: 9px 0px;
+                cursor: pointer;
+            }
+            li.selected {
+                background: black;
+                color: white;
+                font-weight: 800;
+            }
+        }
+        .clear {
+            clear: both;
+        }
+        
+        .card {
+            .fl {
+            float: left;
+            background: none;
+            ion-icon {
+                font-size:25px;
+            }
+            }
+            ion-avatar { 
+            img {
+                width: 35px;
+                height: 30px;
+            }
+            }
+            .like-content {
+            clear:both;
+            }
+            [col-10] {
+            -webkit-box-flex: 0;
+            -webkit-flex: 0 0 83.33333%;
+            -ms-flex: 0 0 83.33333%;
+            flex: 0 0 83.33333%;
+            width: 83.33333%;
+            max-width: 83.33333%;
+            }
+            [col-2] {
+            -webkit-box-flex: 0;
+            -webkit-flex: 0 0 16.66667%;
+            -ms-flex: 0 0 16.66667%;
+            flex: 0 0 16.66667%;
+            width: 16.66667%;
+            max-width: 16.66667%;
+            button {
+                text-align: center;
+                vertical-align: middle;
+                margin: 47% 0px 0px 0px;
+                background: none;
+            }
+            }
+            .post_title {
+            text-align: left;
+            font-size: 14px;
+            margin-left: 20px;
+            margin-top: 0px;
+            }
+            ul.post_tags {
+            list-style: none;
+            padding-left: 20px;
+            }
+            .image-gallery {
+            clear:both;
+            width:100%;
+            }
+
+            .card-content-description {
+            padding-left: 10px;
+            }
+        }
+        .price:before {
+            content: "\20b9";
+        }
+        .product-section {
+            ion-row { width:100%; height:auto; }
+
+            ion-col { width:auto; height:33%; }
+
+            img { width:100%; height:100%; }
+        }
+    }
+}
+.item-inner {
+    border: 0px;
+}
+.width50 {
+    width: 50%;
+}
+
+ion-fab-list {
+    margin-left: -66px;
+}

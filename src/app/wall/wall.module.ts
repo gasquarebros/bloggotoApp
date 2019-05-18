@@ -2,11 +2,9 @@ import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { Routes, RouterModule } from '@angular/router';
-import { LoginHeaderComponent } from '../login-header/login-header.component';
 import { IonicModule } from '@ionic/angular';
-import { PostPopover } from './post-popover';
-import { ModelPostComponent } from '../wall/model-post/model-post.component';
 import { WallPage } from './wall.page';
+import { ShareModulePageModule } from '../share-module/share-module.module';
 
 const routes: Routes = [
   {
@@ -21,19 +19,15 @@ const routes: Routes = [
     FormsModule,
     IonicModule,
     ReactiveFormsModule,
-    RouterModule.forChild(routes)
+    RouterModule.forChild(routes),
+    ShareModulePageModule
   ],
-  declarations: [WallPage,
-    PostPopover,
-    ModelPostComponent,
-    LoginHeaderComponent
+  declarations: [
+    WallPage,
   ],
   exports: [
-    // LoginHeaderComponent
   ],
   entryComponents: [
-    PostPopover,
-    ModelPostComponent
   ]
 })
 export class WallPageModule {}

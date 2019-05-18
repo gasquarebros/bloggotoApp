@@ -1,5 +1,72 @@
-<app-login-header [title]="Profile"></app-login-header>
+<app-login-header [title]="title" [customerType]="customerType" [star]="'true'"></app-login-header>
 
 <ion-content padding>
-
+    <ion-fab vertical="bottom" horizontal="end" slot="fixed">
+        <ion-fab-button>
+            <ion-icon name="add"></ion-icon>
+        </ion-fab-button>
+        <ion-fab-list side="top" horizontal="start" >
+            <ion-button (click)="createPost()">Post on Wall</ion-button>
+            <ion-button>Sell Products</ion-button>
+            <ion-button>Post Services</ion-button>
+        </ion-fab-list>
+    </ion-fab>
+    <div class="info-section" *ngIf="profileInfo">
+        <div class="top-section">
+            <div class="top-left fl">
+                <ion-list lines="none" class="prof-sec">
+                    <ion-item no-lines>
+                        <img class="profilepic" *ngIf="profileInfo.info.customer_photo" src="{{profileInfo.info.customer_photo}}">
+                        <img class="profilepic" *ngIf="profileInfo.info.customer_photo == ''" src="assets/icon/avatar.png">
+                        <p class="badge" *ngIf= "profileInfo.info.customer_celebrity_badge">
+                            <ion-icon name="star-outline"></ion-icon>
+                        </p>
+                    </ion-item>   
+                    <p class="profilename">{{profileInfo.info.customer_username}}</p>
+                    <ul class="profession">
+                        <li *ngFor="let prof of profileInfo.info.customer_prof_profession">{{prof}}</li>
+                    </ul>
+                </ion-list>     
+            </div>
+            <div class="top-right fr">
+                <div class="fl width50">
+                    <p class="counting">{{profileInfo.follow_count}}<span> Looped</span></p>
+                    <div *ngIf="userInfo.bg_user_id != profileInfo.info.customer_id">
+                        <p class="buttons-action" (click)="loopUser('follow')" *ngIf="loop">Looped</p>
+                        <p class="buttons-action" (click)="loopUser('unfollow')" *ngIf="!loop">Loop</p>
+                    </div>
+                </div>
+                <div class="fr width50">
+                    <p class="counting">{{profileInfo.following_count}}<span> Looping</span></p>
+                    <div *ngIf="userInfo.bg_user_id != profileInfo.info.customer_id">
+                        <p class="buttons-action">Message</p>
+                    </div>
+                </div>
+                <p class="bio" *ngIf="profileInfo.info.customer_notes">{{profileInfo.info.customer_notes}}</p>
+            </div>
+        </div>
+        <div class="middle-section">
+            <ul class="section">
+                <li [ngClass]="(profileView =='post')?'selected':''" (click)="profileViewSection('post')"><span>Posts</span></li>
+                <li [ngClass]="(profileView =='product')?'selected':''" (click)="profileViewSection('product')"><span>Products</span></li>
+                <li [ngClass]="(profileView =='service')?'selected':''" (click)="profileViewSection('service')"><span>Services</span></li>
+            </ul>
+            <div class="clear"></div>
+            <div class="post-section" *ngIf="profileView == 'post'">
+                <app-common-post [isProfileType] = "profileType" [isProfile] = "true" [profileInfo] = "profileInfo" ></app-common-post>
+            </div>
+            <div class="product-section" *ngIf = "profileView == 'product'">
+                <app-common-products [isProfilePage] = "true" [profileInfo] = "profileInfo"></app-common-products>    
+            </div>
+            <div class="services-section" *ngIf="profileView == 'service'">
+                <app-common-services [profileView] = "true" [profileInfo] = "profileInfo"></app-common-services>  
+            </div>
+        </div>
+    </div>
+    <div class="no-info-section" *ngIf="!profileInfo">
+        <p class="txtcenter"> No Data Found </p>
+    </div>
 </ion-content>
+<app-common-footer 
+    [postProfileType] = 'profileType'
+    (updatePageType) = profileSection($event)></app-common-footer>

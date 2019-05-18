@@ -1,0 +1,21 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-title>
+        <div class="fl middle">
+            <p class="nopadmar title txtcenter txtellipsis">{{title}}</p>
+            <p class="nopadmar customer_type txtcenter" *ngIf="customerType">{{customerType}}</p>
+        </div>
+        <div class="fr last" *ngIf="star"><ion-icon name="star-outline"></ion-icon></div>
+    </ion-title>    
+    <ion-buttons slot="start">
+      <ion-menu-button autoHide="false"></ion-menu-button>
+    </ion-buttons>
+  </ion-toolbar>
+  <ion-list class="top-list">
+      <ion-item>
+        <ion-label class="top-header"> <a class="menu-header" (click)="navigatePage('wall')">Social Media</a> </ion-label>
+        <ion-label class="top-header"> <a class="menu-header" (click)="navigatePage('products')">Products</a> </ion-label>
+        <ion-label class="top-header"> <a class="menu-header" (click)="navigatePage('services')">Services</a> </ion-label>
+      </ion-item>
+    </ion-list>
+</ion-header>

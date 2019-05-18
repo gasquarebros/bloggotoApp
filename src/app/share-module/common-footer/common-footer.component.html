@@ -1,0 +1,17 @@
+<ion-footer>
+  <ion-toolbar>
+      <ul class="footer-section">
+          <li [ngClass]="(postProfileType =='')?'selected':''" (click)="profileSection()">Your Feed</li>
+          <li class="empty"> </li>
+          <li [ngClass]="(postProfileType =='blogs')?'selected':''" (click)="profileSection('blogs')">Blogs</li>
+          <li class="empty"> </li>
+          <li [ngClass]="(postProfileType =='pictures')?'selected':''" (click)="profileSection('pictures')">Pictures</li>
+          <li class="empty"> </li>
+          <li [ngClass]="(postProfileType =='video')?'selected':''" (click)="profileSection('video')">Videos</li>
+          <li class="empty"> </li>
+          <li [ngClass]="(postProfileType =='story')?'selected':''" (click)="profileSection('story')">Stories</li>
+          <li class="empty"> </li>
+          <li [ngClass]="(postProfileType =='book')?'selected':''" (click)="profileSection('book')">Books</li>
+      </ul>
+  </ion-toolbar>
+</ion-footer>
