@@ -5,6 +5,7 @@ import { RestApiService } from '../../rest-api.service';
 import { Camera, CameraOptions } from '@ionic-native/camera/ngx';
 import { FileTransfer, FileUploadOptions, FileTransferObject } from '@ionic-native/file-transfer/ngx';
 import { FileChooser } from '@ionic-native/file-chooser/ngx';
+import * as _ from 'underscore';
 //import { File } from '@ionic-native/file';
 
 @Component({
@@ -27,6 +28,7 @@ export class ModelPostComponent implements OnInit {
   public followers: any = [];
   public postCategorySelect: string;
   public postTypeSelected: string;
+  public postTags: any = [];
   public formError: string;
   validations_form: FormGroup;
   validations_postform: FormGroup;
@@ -72,17 +74,33 @@ export class ModelPostComponent implements OnInit {
       this.fetchComments();
     }
     if (this.modalType === 'post') {
-      this.postCategorySelect = 'general';
-      this.postTypeSelected = 'blog';
+      
       this.postCategory = this.navParams.data.postCategories;
       this.postType = this.navParams.data.postTypes;
       this.followers = this.navParams.data.followers;
-      console.log(this.postType);
+
+      if (this.postInfo  != '') {
+        console.log(this.postInfo);
+        this.postCategorySelect = this.postInfo.blog_cat_name.toLowerCase();
+        this.postTypeSelected = this.postInfo.post_type;
+        this.postTags = [];
+        if (this.postInfo.post_tag_names.length > 0) {
+          const postTaggging: any = [];
+          _.each(this.postInfo.post_tag_names, function(postTag: any) {
+            postTaggging.push(postTag.username);
+          });
+          this.postTags = postTaggging;
+        }
+      } else {
+        this.postCategorySelect = 'general';
+        this.postTypeSelected = 'blog';
+        this.postTags = [];
+      }
       this.validations_postform = this.formBuilder.group({
-        title: new FormControl('', Validators.compose([
+        title: new FormControl(this.postInfo.post_title, Validators.compose([
           Validators.required
         ])),
-        description: new FormControl('', Validators.compose([
+        description: new FormControl(this.postInfo.post_full_description, Validators.compose([
           Validators.required
         ])),
         tagging: new FormControl(),
@@ -196,7 +214,6 @@ export class ModelPostComponent implements OnInit {
     alert();
     this.fileChooser.open().then(uri => {
       alert(uri);
-      alert(this.imageData)
       const fileTransfer: FileTransferObject = this.transfer.create();
       const options1: FileUploadOptions = {
           fileKey: 'image_upload_file',
@@ -205,20 +222,38 @@ export class ModelPostComponent implements OnInit {
           params: {},
           chunkedMode : false
       };
-      uri = 'content://com.android.providers.media.documents/document/video%3A229638';
-      fileTransfer.upload(uri, 'https://cors-anywhere.herokuapp.com/http://www.bloggoto.com/post/pdfupload_post', options1)
+      //uri = 'content://com.android.providers.media.documents/document/video%3A229638';
+      fileTransfer.upload(uri, 'https://cors-anywhere.herokuapp.com/http://www.bloggoto.com/post/pdfupload', options1)
         .then((data) => {
           // success
+          alert('success');
+          alert(data);
+          alert(JSON.stringify(data));
         }, (err) => {
         // error
+        
+        alert('error');
+        alert(err);
+        alert(JSON.stringify(err));
+        alert(err.toString());
         });
-        fileTransfer.upload(this.imageData, 'https://cors-anywhere.herokuapp.com/http://www.bloggoto.com/post/pdfupload_post', options1)
-        .then((data) => {
-          // success
-        }, (err) => {
-        // error
-        });
+        
+
+        
+    const body = new FormData();
+    body.append('image', uri);
+    this.api.postData('post/pdfupload', body).subscribe(result => {
+      const res: any = result;
+      alert(JSON.stringify(res));
+    }, err => {
+      alert(JSON.stringify(err));
+      console.log(err);
     });
+
+    });
+
+    
+
    /*  this.fileChooser.open()
       .then(uri => {
         console.log(uri);
@@ -320,8 +355,13 @@ export class ModelPostComponent implements OnInit {
     body.append('post_embed_video_url', form.youtubeurl);
     body.append('post_tags[]', form.tagging);
     body.append('user_id', this.userInfo.bg_user_id);
+    let ApiUrl = 'post/post_add';
+    if (this.postInfo.post_id !== undefined && this.postInfo.post_id !== '') {
+      ApiUrl = 'post/post_update';
+      body.append('post_id', this.postInfo.post_id);
+    }
     console.log(body);
-    this.api.postData('post/post_add', body).subscribe(result => {
+    this.api.postData(ApiUrl, body).subscribe(result => {
       console.log('innn');
       const res: any = result;
       if (res !== undefined) {

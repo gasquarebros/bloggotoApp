@@ -15,8 +15,11 @@
     <ion-avatar>
       <img src="assets/icon/avatar.png">
     </ion-avatar>
-    <h6>Hi {{userInfo.customer_username}}!</h6>
+    <h6 *ngIf="userInfo.customer_username != undefined">Hi {{userInfo.customer_username}}!</h6>
   </ion-item>
   <hr no-padding no-margin>
-  <app-common-post></app-common-post>
+  <app-common-post [isProfileType] = "profileType"></app-common-post>
 </ion-content>
+<app-common-footer 
+    [postProfileType] = 'profileType'
+    (updatePageType) = profileSection($event)></app-common-footer>

@@ -70,4 +70,8 @@ export class AppComponent {
   profile() {
     this.menuCtrl.close();
   }
+  draftRedirect(type) {
+    this.menuCtrl.close();
+    this.router.navigateByUrl('/draft-posts?type=' + type);
+  }
 }

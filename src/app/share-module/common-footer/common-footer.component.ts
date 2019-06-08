@@ -17,7 +17,9 @@ export class CommonFooterComponent implements OnInit {
 
   constructor() { }
 
-  ngOnInit() {}
+  ngOnInit() {
+    this.postProfileType = '';
+  }
 
   profileSection(section = '') {
     this.profileView = 'post';

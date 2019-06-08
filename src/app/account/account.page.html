@@ -1,0 +1,177 @@
+<app-login-header [title]="title"></app-login-header>
+
+<ion-content padding>
+    <div id="sc-edprofile">
+        <form  [formGroup]="validations_form"  (ngSubmit)="updateProfile(validations_form.value)" >
+          <div class="userImage">
+              <div class="user-image-section">
+                <div class="img _1-yc profpic" aria-label="userData.customer_username" role="img" style="background:#d8dce6;background-size:100% 100%;-webkit-background-size:100% 100%;width:48px;height:48px;">
+                    <ion-avatar>
+                      <img [src]="userData.customer_photo">
+                    </ion-avatar>
+                </div>
+              </div>
+          </div>
+          <div class="error-message server-error" [innerHTML]="formError">
+          </div>
+
+          <div class="sc-container" >
+            <p>Basic Details</p>
+            <div *ngIf="userData.customer_type == 0">
+              <ion-input type="text" formControlName="first_name" placeholder="Enter First Name" value="{{userData.customer_first_name}}" required></ion-input>
+              <ion-input type="text" formControlName="last_name" placeholder="Enter Last Name" value="{{userData.customer_last_name}}"></ion-input>
+              <ion-input type="text" formControlName="customer_phone" placeholder="Enter Phone Number" value="{{userData.customer_phone}}"></ion-input>
+              <ion-item>
+                  <ion-label>Date</ion-label>
+                  <ion-datetime formControlName="customer_birthdate" placeholder="Enter Birthday" value="{{userData.customer_birthdate}}" display-format="YYYY-MM-DD"></ion-datetime>
+              </ion-item>
+            </div>
+            <div *ngIf="userData.customer_type == 1">
+              <ion-input type="text" formControlName="company_name" placeholder="Enter Company Name" value="{{userData.company_name}}" required></ion-input>
+              <ion-select formControlName="business_source" placeholder="Select Business Source">
+                <ion-select-option [selected]="userData.customer_business_source == 'online'"  value="online"> Online Business</ion-select-option> 
+                <ion-select-option [selected]="userData.customer_business_source == 'offline'" [value]='offline'> Offline Business</ion-select-option> 
+                <ion-select-option [selected]="userData.customer_business_source == both" [value]='both'> Both Online/Offline</ion-select-option> 
+              </ion-select>
+              <ion-input type="text" formControlName="business_website" placeholder="Enter Business Website" value="{{userData.customer_business_website}}"></ion-input>
+
+              <ion-select formControlName="business_model" placeholder="Select Business Model">
+                <ion-select-option [selected]="userData.business_model == 'sales'"  value="sales"> Sales</ion-select-option> 
+                <ion-select-option [selected]="userData.business_model == 'service'" [value]='service'> Service</ion-select-option> 
+                <ion-select-option [selected]="userData.business_model == both" [value]='sale-service'> Sales/Services</ion-select-option> 
+              </ion-select>
+
+              <ion-input type="text" formControlName="first_name" placeholder="Lead Person of Business" value="{{userData.customer_first_name}}" required></ion-input>
+              <ion-input type="text" formControlName="last_name" placeholder="Point of Contact" value="{{userData.customer_last_name}}"></ion-input>
+
+
+              <ion-select formControlName="business_sector" placeholder="Select Business Sector">
+                <ion-select-option [selected]="userData.business_sector == 'local'"  value="local"> Local</ion-select-option> 
+                <ion-select-option [selected]="userData.business_sector == 'national'" [value]='national'> National</ion-select-option> 
+                <ion-select-option [selected]="userData.business_sector == international" [value]='international'> International</ion-select-option> 
+              </ion-select>
+
+              <ion-select formControlName="branches" placeholder="Select Branches">
+                <ion-select-option [selected]="userData.branches == '0'"  value="0"> No</ion-select-option> 
+                <ion-select-option [selected]="userData.branches == '1'" [value]='1'> Yes</ion-select-option> 
+              </ion-select>
+
+              <ion-input type="text" formControlName="business_establishment" placeholder="Business Establishment" value="{{userData.business_establishment}}" required></ion-input>
+              <ion-input type="text" formControlName="customer_prof_specialized" placeholder="Business Customer Target" value="{{userData.customer_prof_specialized}}"></ion-input>
+              
+              <ion-select formControlName="is_adult_only" placeholder="is_adult_only">
+                <ion-select-option [selected]="userData.is_adult_only == '0'"  value="0"> No</ion-select-option> 
+                <ion-select-option [selected]="userData.is_adult_only == '1'" [value]='1'> Yes</ion-select-option> 
+              </ion-select>
+            </div>
+
+
+            <ion-input type="text" formControlName="address_line1" placeholder="Enter Address Line1" value="{{userData.address}}"></ion-input>
+            <ion-input type="text" formControlName="address_line2" placeholder="Enter Address Line2" value="{{userData.address_line2}}"></ion-input>
+            <ion-select value="{{userData.customer_country}}" (ionChange) = "changeCountry($event)" formControlName="customer_country" placeholder="Select Country">
+                <ion-select-option *ngFor="let country of countries;let i=index;" [selected]="userData.customer_country == country.key" [value]='country.indexval'> {{country.value}}</ion-select-option> 
+            </ion-select>
+            <ion-select (ionChange) = "changeState($event)" value="{{userData.customer_state}}" formControlName="customer_state" placeholder="Select State">
+                <ion-select-option [value]="">Select State</ion-select-option>
+                <ion-select-option *ngFor="let state of validStates;let i=index;" [value]='state.key'[selected]="userData.customer_state == state.key"> {{state.value}}</ion-select-option> 
+            </ion-select>
+            {{userData.customer_city}}
+            <ion-select value="{{userData.customer_city}}" formControlName="customer_city" placeholder="Select City">
+                <ion-select-option [value]="">Select City</ion-select-option>
+                <ion-select-option *ngFor="let city of validCities;let i=index;" [value]='city.key' [selected]="userData.customer_city == city.key"> {{city.value}}</ion-select-option> 
+            </ion-select>
+            <ion-input type="text" formControlName="postal_code" placeholder="Enter Postal Code" value="{{userData.customer_postal_code}}"></ion-input>
+            <ion-select formControlName="customer_profession" (ionChange) = "changeProf($event)" [selectedText]="selectedCodeValue ? selectedCodeValue.toString() : selectedCodeValue" multiple="true" placeholder="Select Profession">
+                <ion-select-option [value]="">Select Profession</ion-select-option>
+                <ion-select-option *ngFor="let profession of professions;let i=index;" [value]='profession.indexval' [selected]="checkProfession(profession.indexval)"> {{profession.value}}</ion-select-option> 
+            </ion-select>
+
+
+            <div *ngIf="userData.customer_type == 0">
+              <ion-select formControlName="customer_gender" placeholder="Select Gender">
+                <ion-select-option value=""> Select Gender</ion-select-option> 
+                <ion-select-option [selected]="userData.customer_gender == M" [value]='M'> Male</ion-select-option> 
+                <ion-select-option [selected]="userData.customer_gender == F" [value]='F'> Female</ion-select-option> 
+              </ion-select>
+
+              <ion-select formControlName="customer_maritial_status" placeholder="Select Martial Status">
+                <ion-select-option value=""> Select Martial Status</ion-select-option> 
+                <ion-select-option [selected]="userData.customer_maritial_status == single" [value]='single'> Single</ion-select-option> 
+                <ion-select-option [selected]="userData.customer_maritial_status == married" [value]='married'> Married</ion-select-option> 
+                <ion-select-option [selected]="userData.customer_maritial_status == divorced" [value]='divorced'> Divorced</ion-select-option> 
+                <ion-select-option [selected]="userData.customer_maritial_status == 'Open Relationship'" [value]='OpenRelationship'> Open Relationship</ion-select-option> 
+                <ion-select-option [selected]="userData.customer_maritial_status == 'In Relationship'" [value]='InRelationship'> In Relationship</ion-select-option> 
+              </ion-select>
+              <ion-textarea formControlName="customer_places_visted" rows="2" cols="20" placeholder="Places Visited" value="{{userData.customer_places_visted}}"></ion-textarea>       
+              <ion-textarea formControlName="customer_places_tovist" rows="2" cols="20" placeholder="Places to Visit" value="{{userData.customer_places_tovist}}"></ion-textarea>
+            </div>
+
+            <ion-textarea formControlName="customer_notes" rows="2" cols="20" placeholder="Bio" value="{{userData.customer_notes}}"></ion-textarea>
+            
+
+            <p class="txtcenter">Bank Details</p>
+            <ion-input type="text" formControlName="customer_account_no" placeholder="Enter Account No." value="{{userData.customer_account_no}}"></ion-input>
+            <ion-input type="text" formControlName="customer_account_holder_name" placeholder="Enter Account Holder Name" value="{{userData.customer_account_holder_name}}"></ion-input>
+            <ion-input type="text" formControlName="customer_ifsc_code" placeholder="Enter IFSC Code" value="{{userData.customer_ifsc_code}}"></ion-input>
+            <ion-input type="text" formControlName="customer_gst_no" placeholder="Enter GST No." value="{{userData.customer_gst_no}}"></ion-input>
+
+            <div *ngIf="userData.customer_type == 1">
+              <ion-input type="text" formControlName="customer_pan_no" placeholder="Enter PAN No." value="{{userData.customer_pan_no}}"></ion-input>
+              <ion-input type="text" formControlName="customer_tin_no" placeholder="Enter TIN No." value="{{userData.customer_tin_no}}"></ion-input>
+            </div>
+
+            
+
+            
+            <div *ngIf="userData.customer_type == 0">
+              <p class="txtcenter">Professional</p>
+              <ion-input type="text" formControlName="customer_school" placeholder="Enter School" value="{{userData.customer_school}}"></ion-input>
+              <ion-input type="text" formControlName="customer_college" placeholder="Enter Pre College" value="{{userData.customer_college}}"></ion-input>
+              <ion-input type="text" formControlName="customer_college_higher" placeholder="Enter Graduation" value="{{userData.customer_college_higher}}"></ion-input>
+              <ion-select formControlName="customer_nature" value="{{userData.customer_nature}}" placeholder="Select Nature of Profession">
+                  <ion-select-option [value]="">Select Nature of Profession</ion-select-option>
+                  <ion-select-option [selected]="userData.customer_nature == working" [value]='working'>Working</ion-select-option> 
+                  <ion-select-option [selected]="userData.customer_nature == studying" [value]='studying'>Studying</ion-select-option> 
+              </ion-select>
+              <ion-input type="text" formControlName="customer_position" placeholder="Enter Position" value="{{userData.customer_position}}"></ion-input>
+              <ion-input type="text" formControlName="customer_current_company" placeholder="Enter Current Company" value="{{userData.customer_current_company}}"></ion-input>
+              <ion-input type="text" formControlName="customer_previous_company" placeholder="Enter Previous Companies" value="{{userData.customer_previous_company}}"></ion-input>
+            </div>  
+
+            <p class="txtcenter">Social Media</p>
+            <ion-input type="text" formControlName="customer_facebook_link" placeholder="Enter Facebook Link" value="{{userData.customer_facebook_link}}"></ion-input>
+            <ion-input type="text" formControlName="customer_instagram_link" placeholder="Enter Instagram Link" value="{{userData.customer_instagram_link}}"></ion-input>
+            <ion-input type="text" formControlName="customer_twitter_link" placeholder="Enter Twitter Link" value="{{userData.customer_twitter_link}}"></ion-input>
+            <ion-input type="text" formControlName="customer_youtube_link" placeholder="Enter Youtube Link" value="{{userData.customer_youtube_link}}"></ion-input>
+            <ion-input type="text" formControlName="customer_linkedin_link" placeholder="Enter LinkedIn Link" value="{{userData.customer_linkedin_link}}"></ion-input>
+
+            <div *ngIf="userData.customer_type == 0">
+              <p class="txtcenter">Interest</p>
+              <ion-input type="text" formControlName="customer_hobbies" placeholder="Enter Hobbies" value="{{userData.customer_hobbies}}"></ion-input>
+              <ion-input type="text" formControlName="customer_fav_color" placeholder="Enter Favorite Color" value="{{userData.customer_fav_color}}"></ion-input>
+              <ion-input type="text" formControlName="customer_fav_place" placeholder="Enter Favorite Place" value="{{userData.customer_fav_place}}"></ion-input>
+              <ion-input type="text" formControlName="customer_fav_food" placeholder="Enter Favorite Food" value="{{userData.customer_fav_food}}"></ion-input>
+              <ion-input type="text" formControlName="customer_fav_brand" placeholder="Enter Favorite Brand" value="{{userData.customer_fav_brand}}"></ion-input>
+              <ion-input type="text" formControlName="customer_fav_music" placeholder="Enter Favorite Musix" value="{{userData.customer_fav_music}}"></ion-input>
+              <ion-input type="text" formControlName="customer_fav_book" placeholder="Enter Favorite Book" value="{{userData.customer_fav_book}}"></ion-input>
+              <ion-input type="text" formControlName="customer_fav_author" placeholder="Enter Favorite Author" value="{{userData.customer_fav_author}}"></ion-input>
+              <ion-input type="text" formControlName="customer_fav_drink" placeholder="Enter Favorite Drink" value="{{userData.customer_fav_drink}}"></ion-input>
+              <ion-input type="text" formControlName="customer_fav_things" placeholder="Enter Favorite Things" value="{{userData.customer_fav_things}}"></ion-input>
+              <ion-input type="text" formControlName="customer_fav_sports" placeholder="Enter Favorite Sports" value="{{userData.customer_fav_sports}}"></ion-input>
+              <ion-input type="text" formControlName="customer_fav_celebrates" placeholder="Enter Favorite Celebrities" value="{{userData.customer_fav_celebrates}}"></ion-input>
+              <ion-input type="text" formControlName="customer_fav_movie" placeholder="Enter Favorite Movies" value="{{userData.customer_fav_movie}}"></ion-input>
+              <ion-textarea formControlName="customer_bucket_list" rows="2" cols="20" placeholder="Bucket List"  value="{{userData.customer_bucket_list}}"></ion-textarea>
+            </div>
+            <div *ngIf="userData.customer_type == 1">
+                <ion-input type="text" formControlName="customer_phone" placeholder="Enter Phone Number" value="{{userData.customer_phone}}"></ion-input>
+                <ion-input type="text" formControlName="customer_prof_official_phone" placeholder="Enter Official Phone Number" value="{{userData.customer_prof_official_phone}}"></ion-input>
+                <ion-input type="text" formControlName="customer_prof_official_email" placeholder="Enter Official Email" value="{{userData.customer_prof_official_email}}"></ion-input>
+                <ion-input type="text" formControlName="customer_prof_official_website" placeholder="Enter Website" value="{{userData.customer_prof_official_website}}"></ion-input>
+                <ion-input type="text" formControlName="fax" placeholder="Enter FAX" value="{{userData.fax}}"></ion-input>
+                <ion-textarea formControlName="address" rows="2" cols="20" placeholder="Google Map Location"  value="{{userData.address}}"></ion-textarea>
+            </div>
+            <ion-button class="submit-btn"  size="small" type="submit" [disabled]="!validations_form.valid" expand="block">Update Profile</ion-button>
+          </div>
+        </form>
+      </div>
+</ion-content>

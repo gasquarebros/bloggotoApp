@@ -35,7 +35,7 @@ export class CommonPostComponent implements OnInit, OnChanges {
 
   @Input()
   public profileInfo: any;
-  
+
   @Input()
   public isProfileType: string;
 
@@ -60,9 +60,15 @@ export class CommonPostComponent implements OnInit, OnChanges {
       if (this.isProfile === true) {
         this.fetchProfilePosts();
       } else {
-        this.fetchPosts();
-        this.getPostCategories();
-        this.getTagBloggotians();
+        if (this.isProfileType === 'draft') {
+          this.fetchDraft();
+        } else if (this.isProfileType === 'favourite') {
+          this.fetchfavourite();
+        } else {
+          this.fetchPosts();
+          this.getPostCategories();
+          this.getTagBloggotians();
+        }
       }
     });
     this.presentLoadingWithOptions();
@@ -74,6 +80,14 @@ export class CommonPostComponent implements OnInit, OnChanges {
       this.isProfileType = changes['isProfileType']['currentValue'];
       if (this.isProfile === true) {
         this.fetchProfilePosts();
+      } else {
+        if (this.isProfileType === 'draft') {
+          this.fetchDraft();
+        } else if (this.isProfileType === 'favourite') {
+          this.fetchfavourite();
+        } else {
+          this.fetchPosts();
+        }
       }
     }
   }
@@ -119,7 +133,11 @@ export class CommonPostComponent implements OnInit, OnChanges {
 
   fetchPosts() {
     this.pageOffset = 0;
-    this.api.getStaticData('post/post_list?offset=0&app_id=bloggoto_app_123456', this.reqOpts).subscribe(result => {
+    let additionParams = 'offset=0&app_id=bloggoto_app_123456';
+    if (this.isProfileType) {
+      additionParams += '&type=' + this.isProfileType;
+    }
+    this.api.getStaticData('post/post_list?' + additionParams, this.reqOpts).subscribe(result => {
       const res: any = result;
       if (res !== undefined) {
         this.loadingController.dismiss();
@@ -152,17 +170,34 @@ export class CommonPostComponent implements OnInit, OnChanges {
         console.log(err);
       });
     } else {
-      this.api.getStaticData('post/post_list?offset=' + this.pageOffset + '&app_id=bloggoto_app_123456', this.reqOpts).subscribe(result => {
-        const res: any = result;
-        if (res !== undefined) {
-          this.pageOffset = res[0].next_set;
-          this.nextOffset = res[0].next_set;
-          const morePosts = res[0].records;
-          this.posts = this.posts.concat(morePosts);
-        }
-      }, err => {
-        console.log(err);
-      });
+      if (this.isProfileType === 'draft') {
+      } else if (this.isProfileType === 'favourite') {
+        this.api.getStaticData('profile/favorList?offset=' + this.pageOffset + '&userid=' + this.userInfo.bg_user_id +
+        '&app_id=bloggoto_app_123456&type=' + this.isProfileType, this.reqOpts).subscribe(result => {
+          const res: any = result;
+          if (res !== undefined) {
+            this.pageOffset = res[0].next_set;
+            this.nextOffset = res[0].next_set;
+            const morePosts = res[0].records;
+            this.posts = this.posts.concat(morePosts);
+          }
+        }, err => {
+          console.log(err);
+        });
+      } else {
+        this.api.getStaticData('post/post_list?offset=' + this.pageOffset + '&app_id=bloggoto_app_123456&type=' + this.isProfileType ,
+        this.reqOpts).subscribe(result => {
+          const res: any = result;
+          if (res !== undefined) {
+            this.pageOffset = res[0].next_set;
+            this.nextOffset = res[0].next_set;
+            const morePosts = res[0].records;
+            this.posts = this.posts.concat(morePosts);
+          }
+        }, err => {
+          console.log(err);
+        });
+      }
     }
   }
 
@@ -364,7 +399,13 @@ export class CommonPostComponent implements OnInit, OnChanges {
         console.log('ionrefresh Event Triggered!');
         this.loadFetchPosts();
       } else {
-        this.fetchPosts();
+        if (this.isProfileType === 'draft') {
+          this.fetchDraft();
+        } else if (this.isProfileType === 'favourite') {
+          this.fetchfavourite();
+        } else {
+          this.fetchPosts();
+        }
       }
       setTimeout(() => {
         event.target.complete();
@@ -382,6 +423,44 @@ export class CommonPostComponent implements OnInit, OnChanges {
 
   userProfile(customerid) {
     this.router.navigate(['/profile'], { queryParams: { customer: customerid } });
+  }
+
+  fetchfavourite() {
+    const userid = this.userInfo.bg_user_id;
+    this.api.getStaticData('profile/favorList?userid=' + userid + '&offset=' + this.pageOffset, this.reqOpts).subscribe(result => {
+      const res: any = result;
+      if (res !== undefined) {
+        this.loadingController.dismiss();
+        this.enableScroll = false;
+        this.response = res[0];
+        this.pageOffset = '';
+        this.nextOffset = 0;
+        this.posts = res[0].records;
+      }
+    }, err => {
+      console.log(err);
+    });
+  }
+
+  fetchDraft() {
+    const userid = this.userInfo.bg_user_id;
+    this.api.getStaticData('post/drafts_list?userid=' + userid, this.reqOpts).subscribe(result => {
+      const res: any = result;
+      if (res !== undefined) {
+        this.loadingController.dismiss();
+        this.enableScroll = false;
+        this.response = res[0];
+        this.pageOffset = res[0].next_set;
+        this.nextOffset = res[0].next_set;
+        this.posts = res[0].records;
+      }
+    }, err => {
+      console.log(err);
+    });
+  }
+
+  showFullContent(data) {
+    data.showFullContent = (data.showFullContent === undefined) ? true : !data.showFullContent;
   }
 
 }

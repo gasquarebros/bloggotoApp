@@ -1,0 +1,11 @@
+<app-login-header [title]="title"></app-login-header>
+<ion-content>
+<ion-item>
+  <ion-avatar>
+    <img src="assets/icon/avatar.png">
+  </ion-avatar>
+  <h6>Hi {{userInfo.customer_username}}!</h6>
+</ion-item>
+<hr no-padding no-margin>
+<app-common-post [isProfileType] = "profileType"></app-common-post>
+</ion-content>

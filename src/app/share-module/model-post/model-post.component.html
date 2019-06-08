@@ -127,7 +127,7 @@
                             </ion-label>
                           </ion-chip>
                           <div class="mentions-placeholder" data-sigil="js_placeholder">
-                              <ion-input type="text" formControlName="title" placeholder="Enter Title" value="" required></ion-input>
+                              <ion-input type="text" formControlName="title" placeholder="Enter Title" value="{{postInfo.post_title}}" required></ion-input>
                               <div class="validation-errors">
                                 <ng-container *ngFor="let validation of validation_messages.title">
                                   <div class="error-message" *ngIf="validations_postform.get('title').hasError(validation.type) && (validations_postform.get('title').dirty || validations_postform.get('title').touched)">
@@ -136,16 +136,17 @@
                                 </ng-container>
                               </div>
                           </div>
-                          <ion-textarea formControlName="description" class="composerInput mentions-input" rows="6" cols="20" placeholder="What's on your mind?" required></ion-textarea>
+                          <ion-textarea formControlName="description" class="composerInput mentions-input" rows="6" cols="20" placeholder="What's on your mind?" value="{{postInfo.post_full_description}}" required></ion-textarea>
                           <div class="validation-errors">
                             <ng-container *ngFor="let validation of validation_messages.description">
                               <div class="error-message" *ngIf="validations_postform.get('description').hasError(validation.type) && (validations_postform.get('description').dirty || validations_postform.get('description').touched)">
                                 <ion-icon name="information-circle-outline"></ion-icon> {{ validation.message }}
                               </div>
+
                             </ng-container>
                           </div>
                           <div class="mentions-placeholder" data-sigil="js_placeholder">
-                              <ion-input type="text" formControlName="youtubeurl" placeholder="Youtube Video URL" value=""></ion-input>
+                              <ion-input type="text" formControlName="youtubeurl" placeholder="Youtube Video URL" value="{{postInfo.post_embed_video_url}}"></ion-input>
                           </div>
 
                           <div class="mentions-placeholder">

@@ -9,8 +9,7 @@ import { CommonFooterComponent } from '../share-module/common-footer/common-foot
 import { AuthService } from '../auth/auth.service';
 import { RestApiService } from '../rest-api.service';
 import { ActivatedRoute } from '@angular/router';
-
-import { _ } from 'underscore';
+import * as _ from 'underscore';
 
 @Component({
   selector: 'app-profile',

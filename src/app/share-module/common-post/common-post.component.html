@@ -42,7 +42,7 @@
     <h4 class="post_title">
       <a>{{record.post_title}}</a>
     </h4>
-    <ul class="post_tags">
+    <ul class="post_tags" *ngIf="record.post_tag_names != undefined && record.post_tag_names.length > 0">
       <li *ngFor="let tagNames of record.post_tag_names">
           <a (click) = "userProfile(tagNames.username)">#{{tagNames.username}}</a>
       </li>
@@ -85,12 +85,20 @@
           </button>
       </p>
       <p class="like-content"><ion-icon name="heart"></ion-icon> {{record.lkesuser.length}} likes</p>
-      <div [innerHTML]="record.post_description"></div>
-    
-      
+      {{record.showFullContent}}
+      <div class="" *ngIf="record.showFullContent == undefined || record.showFullContent == false">
+        <div [innerHTML]="record.post_description"></div>
+        <div *ngIf="(record.post_description != record.post_full_description)" (click)="showFullContent(record)" class="showmore">Show more</div>
+      </div>
+      <div *ngIf="record.showFullContent == true" class="">
+        <div [innerHTML]="record.post_full_description"></div>
+      </div>
     </ion-card-content>
 
   </ion-card>
+  <div class="no-post txtcenter" *ngIf="!posts">
+    <p>No Post Found</p>
+  </div>
   <ion-infinite-scroll (ionInfinite)="ionRefresh($event, nextOffset)" loadingSpinner="bubbles" loadingText="Loading Users...">
     <ion-infinite-scroll-content></ion-infinite-scroll-content>
   </ion-infinite-scroll>

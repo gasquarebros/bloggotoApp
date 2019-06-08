@@ -24,7 +24,11 @@ const routes: Routes = [
   { path: 'static/:any', loadChildren: './static/static.module#StaticPageModule' },
   { path: 'wall', loadChildren: './wall/wall.module#WallPageModule' },
   { path: 'signup', loadChildren: './signup/signup.module#SignupPageModule' },
-  { path: 'profile', loadChildren: './profile/profile.module#ProfilePageModule' },  { path: 'share-module', loadChildren: './share-module/share-module.module#ShareModulePageModule' },
+  { path: 'profile', loadChildren: './profile/profile.module#ProfilePageModule' },
+  { path: 'share-module', loadChildren: './share-module/share-module.module#ShareModulePageModule' },
+  { path: 'draft-posts', loadChildren: './draft-posts/draft-posts.module#DraftPostsPageModule' },
+  { path: 'draft-posts/:any', loadChildren: './draft-posts/draft-posts.module#DraftPostsPageModule' },  { path: 'account', loadChildren: './account/account.module#AccountPageModule' },
+
 
 ];
 
